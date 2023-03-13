@@ -22,8 +22,8 @@ policies:
      # policy, but for readability we separate them.
      filters:
        - or:
-  	  - associate_public_ip_address: absent
-          - associate_public_ip_address: true
+         - associate_public_ip_address: absent
+         - associate_public_ip_address: true
        - type: traverse
          resources: [aws_security_group]
          attrs:
