@@ -1,0 +1,7 @@
+- resource.__tfmeta.filename: match1.tf
+  resource.__tfmeta.path: aws_opensearch_domain.https_not_enforced
+  resource.domain_endpoint_options.enforce_https: false
+
+- resource.__tfmeta.filename: match2.tf
+  resource.__tfmeta.path: aws_elasticsearch_domain.https_not_enforced
+  resource.domain_endpoint_options.enforce_https: false
