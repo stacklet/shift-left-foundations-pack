@@ -1,6 +1,8 @@
 policies:
   - name: aws-elb-force-secure-tls-policy
-    resource: terraform.aws_alb_listener
+    resource:
+      - terraform.aws_alb_listener
+      - terraform.aws_lb_listener
     description: |
       Load balancer listeners should use current security policies which
       require TLS 1.2+.
