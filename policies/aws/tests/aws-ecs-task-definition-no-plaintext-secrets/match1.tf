@@ -1,16 +1,16 @@
 resource "aws_ecs_task_definition" "plaintext_password" {
   family                = "service"
-  container_definitions = <<EOF
+  container_definitions = <<CONTAINER_DEF
  [
    {
      "name": "my_service",
      "essential": true,
      "memory": 256,
      "environment": [
-       { "name": "ENVIRONMENT", "value": "development" },
-       { "name": "DATABASE_PASSWORD", "value": "ohsosecret123"}
+       { "name": "ENVIRONMENT", "value": "dev" },
+       { "name": "API_TOKEN", "value": "ohsosecret123"}
      ]
    }
  ]
- EOF
+ CONTAINER_DEF
 }

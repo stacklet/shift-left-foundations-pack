@@ -10,6 +10,6 @@ policies:
     filters:
       - family: service
       - type: value
-        key: '@.container_definitions'
+        key: 'container_definitions'
         op: regex
         value: '(?:.|\n)*(password|secret|token|key)'
