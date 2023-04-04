@@ -1,0 +1,25 @@
+policies:
+- name: efs-without-kms
+  description: Amazon Elastic Filesystem should have filesystem encryption enabled
+    using KMS CMK customer-managed keys instead of AWS managed-keys
+  resource: terraform.aws_efs_file_system
+  metadata:
+    severity: High
+    category: Encryption
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/efs_without_kms
+  filters:
+  - kms_key_id: empty
+- name: efs-not-encrypted
+  description: Elastic File System (EFS) must be encrypted
+  resource: terraform.aws_efs_file_system
+  metadata:
+    severity: High
+    category: Encryption
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/efs_not_encrypted
+  filters:
+  - encrypted: empty
+

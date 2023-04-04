@@ -1,0 +1,6 @@
+- resource.__tfmeta.filename: positive.tf
+  resource.__tfmeta.path: "aws_neptune_cluster_instance.example[1]"
+  file_line_start: 1
+- resource.__tfmeta.filename: positive.tf
+  resource.__tfmeta.path: "aws_neptune_cluster_instance.example[0]"
+  file_line_start: 1  

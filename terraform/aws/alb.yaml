@@ -1,0 +1,48 @@
+policies:
+- name: alb-deletion-protection-disabled
+  resource: [terraform.aws_lb, terraform.aws_alb]
+  description: |
+    Application Load Balancer should have deletion protection enabled
+  metadata:
+    severity: low
+    category: Insecure Configurations
+  filters:
+  - enable_deletion_protection: empty
+
+- name: alb-is-not-integrated-with-waf
+  description: |
+    All Application Load Balancers (ALB) must be protected with Web
+    Application Firewall (WAF) service.
+  metadata:
+    severity: medium
+    category: Networking and Firewall
+  resource: [terraform.aws_lb, terraform.aws_alb]
+  filters:
+  - not:
+    - type: value
+      key: type
+      value: internal
+  - type: traverse
+    resources: [aws_wafregional_web_acl_association]
+    count: 0
+    count_op: gt
+
+
+- name: alb-not-dropping-invalid-headers
+  description: |
+    It's considered a best practice when using Application Load
+    Balancers to drop invalid header fields
+  metadata:
+    severity: medium
+    category: Best Practices
+  resource: [terraform.aws_alb, terraform.aws_lb]
+  filters:
+    - or:
+        - load_balancer_type: application
+        - load_balancer_type: empty
+    - drop_invalid_header_fields: empty
+
+
+
+
+
