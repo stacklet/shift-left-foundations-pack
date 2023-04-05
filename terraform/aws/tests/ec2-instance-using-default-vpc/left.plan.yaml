@@ -1,1 +1,34 @@
-[]
+- resource.__tfmeta.filename: positive1.tf
+  resource.__tfmeta.path: aws_instance.positive1
+# The subnet for this instance has its VPC defined as:
+# resource "aws_subnet" "my_subnet" {
+#   vpc_id     = aws_vpc.default.id
+#   ...
+# }
+#
+# But tfparse doesn't seem to carry "aws_vpc.default.id" through
+# anywhere:
+#
+# 'subnet_id': {
+#     '__attribute__': 'aws_subnet.my_subnet.id',
+#     '__name__': 'my_subnet',
+#     '__ref__': 'fb174a0b-a91f-44d1-8ec9-70e9e5f9c608',
+#     '__type__': 'aws_subnet'
+# },
+# 'c7n:aws_subnet': [
+#     {
+#         '__tfmeta': {
+#             'filename': 'positive1.tf',
+#             'label': 'aws_subnet',
+#             'line_end': 17,
+#             'line_start': 10,
+#             'path': 'aws_subnet.my_subnet',
+#             'type': 'resource',
+#             'src_dir': PosixPath('terraform/aws/tests/ec2-instance-using-default-vpc')
+#         },
+#         'cidr_block': '10.0.1.0/24',
+#         'id': 'fb174a0b-a91f-44d1-8ec9-70e9e5f9c608',
+#         'tags': {'Name': 'Main'},
+#         'vpc_id': None
+#     }
+# ]

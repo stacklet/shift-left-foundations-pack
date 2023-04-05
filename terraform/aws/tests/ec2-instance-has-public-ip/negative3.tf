@@ -1,4 +1,4 @@
-module "ec2_instance" {
+module "ec2_instance_negative_3" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 

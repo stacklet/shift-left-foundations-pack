@@ -1,1 +1,8 @@
-[]
+- resource.__tfmeta.filename: positive1.tf
+  resource.__tfmeta.path: aws_instance.web
+- resource.__tfmeta.filename: positive2.tf
+  resource.__tfmeta.path: aws_instance.web
+- resource.__tfmeta.filename: .terraform/modules/ec2_instance_positive3/main.tf
+  resource.__tfmeta.path: module.ec2_instance_positive3.aws_instance.this[0]
+- resource.__tfmeta.filename: .terraform/modules/ec2_instance_positive4/main.tf
+  resource.__tfmeta.path: module.ec2_instance_positive4.aws_instance.this[0]
