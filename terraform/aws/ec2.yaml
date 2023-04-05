@@ -1,0 +1,58 @@
+policies:
+- name: ec2-not-ebs-optimized
+  description: It's considered a best practice for an EC2 instance to use an EBS optimized
+    instance. This provides the best performance for your EBS volumes by minimizing
+    contention between Amazon EBS I/O and other traffic from your instance
+  resource: terraform.aws_ec2*
+  metadata:
+    severity: Info
+    category: Best Practices
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ec2_not_ebs_optimized
+- name: ec2-instance-using-api-keys
+  description: EC2 instances should use roles to be granted access to other AWS services
+  resource: terraform.aws_ec2*
+  metadata:
+    severity: Low
+    category: Access Control
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ec2_instance_using_api_keys
+- name: ec2-instance-using-default-vpc
+  description: EC2 Instances should not be configured under a default VPC network
+  resource: terraform.aws_ec2*
+  metadata:
+    severity: Low
+    category: Networking and Firewall
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ec2_instance_using_default_vpc
+- name: ec2-instance-monitoring-disabled
+  description: EC2 Instance should have detailed monitoring enabled. With detailed
+    monitoring enabled data is available in 1-minute periods
+  resource: terraform.aws_ec2*
+  metadata:
+    severity: Info
+    category: Observability
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ec2_instance_monitoring_disabled
+- name: ec2-instance-has-public-ip
+  description: EC2 Instance should not have a public IP address.
+  resource: terraform.aws_ec2*
+  metadata:
+    severity: High
+    category: Networking and Firewall
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ec2_instance_has_public_ip
+- name: ec2-instance-using-default-security-group
+  description: EC2 instances should not use default security group(s)
+  resource: terraform.aws_ec2*
+  metadata:
+    severity: Low
+    category: Access Control
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ec2_instance_using_default_security_group
