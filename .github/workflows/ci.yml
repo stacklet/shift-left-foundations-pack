@@ -1,0 +1,32 @@
+name: "CI"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false          
+      - name: Check Terraform
+        run: |
+          terraform fmt -check -recursive .
+      - name: Check Workflows
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+  Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Policy Tests
+        run: |
+          docker run --rm -v $PWD:/policies cloudcustodian/c7n-left:dev test -p /policies/terraform/aws
