@@ -1,0 +1,4 @@
+- resource.__tfmeta.filename: 'match1.tf'
+  resource.__tfmeta.path: 'aws_alb_listener.allows_tls_1.1'
+  resource."c7n:MatchedFilters":
+    - 'ssl_policy'
