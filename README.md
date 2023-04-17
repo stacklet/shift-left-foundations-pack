@@ -1,2 +1,3 @@
-# sinistral-policies
+# Stacklet IaC Governance
+
 Shift Left Policies
