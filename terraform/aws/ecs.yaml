@@ -13,7 +13,7 @@ policies:
     - type: value
       key: container_definitions
       op: regex
-      value: '(?:.|\n)*password'
+      value: '(?:.|\n)*(password|secret|token|key)'
 
 - name: ecs-service-without-running-tasks
   description: ECS Service should have at least 1 task running

@@ -1,5 +1,0 @@
-- resource.__tfmeta.filename: match1.tf
-  resource.__tfmeta.path: aws_ecs_task_definition.plaintext_password
-  resource."c7n:MatchedFilters":
-    - 'family'
-    - 'container_definitions'

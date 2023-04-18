@@ -1,5 +1,5 @@
 policies:
-   - name: check-security-group-open-cidr
+   - name: ec2-check-security-group-open-cidr
      resource: terraform.aws_instance
      description: "EC2 should not be open to world on ssh"
      metadata:
@@ -12,7 +12,7 @@ policies:
           attrs:
             - Ipv4: 0.0.0.0/0
 
-   - name: check-security-group-inline-open-cidr
+   - name: ec2-check-security-group-inline-open-cidr
      resource: terraform.aws_instance
      description: "EC2 should not be open to world on ssh"
      metadata:
