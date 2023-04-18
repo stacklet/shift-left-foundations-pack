@@ -1,0 +1,6 @@
+- resource.__tfmeta.filename: positive1.tf
+  resource.__tfmeta.path: aws_ecs_task_definition.service
+- resource.__tfmeta.filename: positive2.tf
+  resource.__tfmeta.path: aws_ecs_task_definition.service_2
+- resource.__tfmeta.filename: positive3.tf
+  resource.__tfmeta.path: aws_ecs_task_definition.service_3
