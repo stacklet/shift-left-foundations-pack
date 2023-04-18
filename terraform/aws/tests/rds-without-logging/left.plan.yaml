@@ -2,7 +2,7 @@
   file_line_start: 1
 - resource.__tfmeta.filename: positive2.tf
   file_line_start: 1
-- resource.__tfmeta.filename: .terraform/modules/db/modules/db_instance/main.tf
+- resource.__tfmeta.filename: modules/db_instance/main.tf
   file_line_start: 20
-- resource.__tfmeta.filename: .terraform/modules/db/modules/db_instance/main.tf
+- resource.__tfmeta.filename: modules/db_instance/main.tf
   file_line_start: 20
