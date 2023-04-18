@@ -1,0 +1,16 @@
+policies:
+  - name: data-http-avoid-leaks
+    resource: terraform.http
+    description: |
+      HTTP data sources can leak sensitive data outside an organization.
+    metadata:
+      severity: critical
+      creator: Stacklet
+    filters:
+      # Any reference could represent a data exfiltration
+      # vector, so look for a reference anywhere in the
+      # resource definition
+      - type: value
+        key: |
+          contains(to_string(@), '__ref__')
+        value: true
