@@ -1,0 +1,2 @@
+- resource.__tfmeta.filename: match1.tf
+  resource.__tfmeta.path: 'aws_alb_listener.http'

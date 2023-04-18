@@ -1,0 +1,2 @@
+- resource.__tfmeta.filename: positive.tf
+  resource.__tfmeta.path: aws_ecs_service.positive1

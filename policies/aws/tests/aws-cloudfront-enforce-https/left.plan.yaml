@@ -1,0 +1,9 @@
+- resource.__tfmeta.filename: match1.tf
+  resource.__tfmeta.path: aws_cloudfront_distribution.allow_all
+  resource."c7n:MatchedFilters":
+    - 'default_cache_behavior.viewer_protocol_policy'
+
+- resource.__tfmeta.filename: match2.tf
+  resource.__tfmeta.path: aws_cloudfront_distribution.allow_all_ordered_cache_behavior
+  resource."c7n:MatchedFilters":
+    - 'ordered_cache_behavior[].viewer_protocol_policy'
