@@ -1,0 +1,4 @@
+- resource.__tfmeta.filename: positive1.tf
+  resource.__tfmeta.path: aws_instance.positive1
+- resource.__tfmeta.filename: positive2.tf
+  resource.__tfmeta.path: aws_instance.positive2
