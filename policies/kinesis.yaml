@@ -1,6 +1,9 @@
 policies:
+
+
 - name: kinesis-not-encrypted-with-kms
-  description: AWS Kinesis Streams and metadata should be protected with KMS
+  description: |
+    AWS Kinesis Streams and metadata should be protected with KMS
   resource: terraform.aws_kinesis_stream
   metadata:
     severity: High
@@ -10,12 +13,14 @@ policies:
     source_path: assets/queries/terraform/aws/kinesis_not_encrypted_with_kms
   filters:
     - kms_key_id: empty
+
+
+
 - name: kinesis-sse-not-configured
   description: |
     AWS Kinesis Server data at rest should have Server Side Encryption
     (SSE) enabled with a Customer Managed KMS Key.
-  resource: 
-    - terraform.aws_kinesis_firehose_delivery_stream
+  resource: terraform.aws_kinesis_firehose_delivery_stream
   metadata:
     severity: High
     category: Encryption
