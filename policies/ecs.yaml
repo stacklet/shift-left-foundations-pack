@@ -1,0 +1,88 @@
+policies:
+- name: ecs-task-definition-with-plaintext-password
+  description: It's not recommended to use plaintext environment variables for sensitive
+    information, such as credential data.
+  resource: terraform.aws_ecs_task_definition
+  metadata:
+    severity: High
+    category: Encryption
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ecs_task_definition_with_plaintext_password
+  filters:
+    - type: value
+      key: container_definitions
+      op: regex
+      value: '(?:.|\n)*(password|secret|token|key)'
+
+- name: ecs-service-without-running-tasks
+  description: ECS Service should have at least 1 task running
+  resource: terraform.aws_ecs_service
+  metadata:
+    severity: Medium
+    category: Availability
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ecs_service_without_running_tasks
+  filters:
+    - deployment_maximum_percent: empty
+    - deployment_minimum_healthy_percent: empty
+    - desired_count: 0
+
+- name: ecs-task-definition-network-mode-not-recommended
+  description: Network_Mode should be 'awsvpc' in ecs_task_definition. AWS VPCs provides
+    the controls to facilitate a formal process for approving and testing all network
+    connections and changes to the firewall and router configurations
+  resource: terraform.aws_ecs_task_definition
+  metadata:
+    severity: High
+    category: Insecure Configurations
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ecs_task_definition_network_mode_not_recommended
+  filters:
+    - type: value
+      key: network_mode
+      op: not-equal
+      value: awsvpc
+
+- name: ecs-cluster-container-insights-disabled
+  description: ECS Cluster should enable container insights
+  resource: terraform.aws_ecs_cluster
+  metadata:
+    severity: Low
+    category: Observability
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ecs_cluster_container_insights_disabled
+  filters:
+    # Use `to_array()` here to avoid treating resources differently based
+    # on how many `setting` blocks they have
+    - type: value
+      key: |
+        to_array(setting)[?
+          name == 'containerInsights' &&
+          value == 'enabled'
+        ]
+      value: empty
+
+- name: ecs-task-definition-volume-not-encrypted
+  description: AWS ECS Task Definition EFS data in transit between AWS ECS host and
+    AWS EFS server should be encrypted
+  resource: terraform.aws_ecs_task_definition
+  metadata:
+    severity: High
+    category: Encryption
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/ecs_task_definition_volume_not_encrypted
+  filters:
+    # Use `to_array()` here to avoid treating resources differently based
+    # on how many `volume` blocks they have
+    - type: value
+      key: |
+        to_array(volume)[?
+          not_null(efs_volume_configuration) &&
+          efs_volume_configuration.transit_encryption != 'ENABLED'
+        ]
+      value: not-null
