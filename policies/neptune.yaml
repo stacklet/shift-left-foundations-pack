@@ -1,0 +1,55 @@
+policies:
+- name: neptune-logging-disabled
+  description: Neptune logging should be enabled
+  resource: terraform.aws_neptune_cluster
+  metadata:
+    severity: Info
+    category: Observability
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/neptune_logging_disabled
+  filters:
+    - or:
+        - enable_cloudwatch_logs_exports: empty
+        - type: value
+          key: enable_cloudwatch_logs_exports
+          value: "audit"
+          value_type: swap
+          op: not-in
+
+- name: neptune-database-cluster-encryption-disabled
+  description: Neptune database cluster storage should have encryption enabled
+  resource: terraform.aws_neptune_cluster
+  metadata:
+    severity: Medium
+    category: Encryption
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/neptune_database_cluster_encryption_disabled
+  filters:
+    - storage_encrypted: empty
+
+- name: neptune-cluster-with-iam-database-authentication-disabled
+  description: Neptune Cluster should have IAM Database Authentication enabled
+  resource: terraform.aws_neptune_cluster
+  metadata:
+    severity: Medium
+    category: Access Control
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/neptune_cluster_with_iam_database_authentication_disabled
+  filters:
+    - iam_database_authentication_enabled: empty
+
+- name: neptune-cluster-instance-is-publicly-accessible
+  description: Neptune Cluster Instance should not be publicly accessible
+  resource: terraform.aws_neptune_cluster_instance
+  metadata:
+    severity: High
+    category: Access Control
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/neptune_cluster_instance_is_publicly_accessible
+  filters:
+    - publicly_accessible: true
+
