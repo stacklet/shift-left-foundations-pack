@@ -1,6 +1,7 @@
 policies:
 - name: ecs-task-definition-with-plaintext-password
-  description: It's not recommended to use plaintext environment variables for sensitive
+  description: |
+    It's not recommended to use plaintext environment variables for sensitive
     information, such as credential data.
   resource: terraform.aws_ecs_task_definition
   metadata:
@@ -30,7 +31,8 @@ policies:
     - desired_count: 0
 
 - name: ecs-task-definition-network-mode-not-recommended
-  description: Network_Mode should be 'awsvpc' in ecs_task_definition. AWS VPCs provides
+  description: |
+    Network_Mode should be 'awsvpc' in ecs_task_definition. AWS VPCs provides
     the controls to facilitate a formal process for approving and testing all network
     connections and changes to the firewall and router configurations
   resource: terraform.aws_ecs_task_definition
@@ -67,7 +69,8 @@ policies:
       value: empty
 
 - name: ecs-task-definition-volume-not-encrypted
-  description: AWS ECS Task Definition EFS data in transit between AWS ECS host and
+  description: |
+    AWS ECS Task Definition EFS data in transit between AWS ECS host and
     AWS EFS server should be encrypted
   resource: terraform.aws_ecs_task_definition
   metadata:

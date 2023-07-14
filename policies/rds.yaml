@@ -80,7 +80,8 @@ policies:
       - port: 1433
 
 - name: rds-storage-not-encrypted
-  description: RDS Storage should be encrypted, which means the attribute 'storage_encrypted'
+  description: |
+    RDS Storage should be encrypted, which means the attribute 'storage_encrypted'
     should be set to 'true'
   resource: terraform.aws_rds_cluster
   metadata:

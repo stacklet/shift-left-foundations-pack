@@ -12,7 +12,8 @@ policies:
     - server_side_encryption.enabled: empty
 
 - name: dynamodb-table-point-in-time-recovery-disabled
-  description: It's considered a best practice to have point in time recovery enabled
+  description: |
+    It's considered a best practice to have point in time recovery enabled
     for DynamoDB Table
   resource: terraform.aws_dynamodb_table
   metadata:
