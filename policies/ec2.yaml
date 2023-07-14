@@ -1,0 +1,34 @@
+policies:
+   - name: ec2-check-security-group-open-cidr
+     resource: terraform.aws_instance
+     description: "EC2 should not be open to world on ssh"
+     metadata:
+       severity: HIGH
+     filters:
+        - type: traverse
+          resources:
+            - aws_security_group
+            - aws_security_ingress_permission
+          attrs:
+            - Ipv4: 0.0.0.0/0
+
+   - name: ec2-check-security-group-inline-open-cidr
+     resource: terraform.aws_instance
+     description: "EC2 should not be open to world on ssh"
+     metadata:
+       severity: HIGH
+     # terraform allows two different forms of defining permissions on a security
+     # group, inline and with a separate resource. we could define this is a single
+     # policy, but for readability we separate them.
+     filters:
+       - or:
+         - associate_public_ip_address: absent
+         - associate_public_ip_address: true
+       - type: traverse
+         resources: [aws_security_group]
+         attrs:
+           - key: ingress.cidr_blocks
+             value: 0.0.0.0/0
+             op: contains
+
+

@@ -1,0 +1,95 @@
+policies:
+
+- name: rds-without-logging
+  description: |
+    RDS does not have any logging configured
+  metadata:
+    severity: info
+    category: Observability
+  resource: terraform.aws_db_instance
+  filters:
+  - enabled_cloudwatch_logs_exports: empty
+
+- name: rds-with-backup-disabled
+  description: |
+    Make sure the AWS RDS configuration has automatic backup
+    configured. If the retention period is equal to 0 there is no
+    backup
+  metadata:
+    severity: medium
+    category: Backup
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/rds_with_backup_disabled
+  resource: terraform.aws_db_instance
+  filters:
+  - backup_retention_period: empty
+
+- name: rds-cluster-with-backup-disabled
+  description: |
+    Make sure the AWS RDS configuration has automatic backup
+    configured. If the retention period is equal to 0 there is no
+    backup    
+  metadata:
+    severity: medium
+    category: Backup
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/rds_cluster_with_backup_disabled
+  resource: terraform.aws_rds_cluster
+  filters:
+  - backup_retention_period: empty
+
+- name: rds-using-default-port
+  description: |
+    RDS should not use the default port (an attacker can easily
+    guess the port). For engines related to Aurora, MariaDB or
+    MySQL, the default port is 3306. PostgreSQL default port is
+    5432, Oracle default port is 1521 and SQL Server default port is
+    1433.
+  metadata:
+    severity: low
+    category: Networking and Firewall
+  resource: terraform.aws_db_instance
+  filters:
+  - or:
+    - port: empty
+    - and:
+      - type: value
+        key: engine
+        value: [postgres, aurora-postgresql]
+        op: in
+      - port: 5432
+    - and:
+      - type: value
+        key: engine
+        value: [mysql, aurora, aurora-mysql, mariadb]
+        op: in
+      - port: 3306
+    - and:
+      - type: value
+        key: engine
+        value: [oracle-ee, oracle-ee-cdb, oracle-se2, oracle-se2-cdb]
+        op: in
+      - port: 1521
+    - and:
+      - type: value
+        key: engine
+        value: [sqlserver-ee, sqlserver-se, sqlserver-ex, sqlserver-web]
+        op: in
+      - port: 1433
+
+- name: rds-storage-not-encrypted
+  description: RDS Storage should be encrypted, which means the attribute 'storage_encrypted'
+    should be set to 'true'
+  resource: terraform.aws_rds_cluster
+  metadata:
+    severity: High
+    category: Encryption
+    provider: aws
+    source: kics
+    source_path: assets/queries/terraform/aws/rds_storage_not_encrypted
+  filters:
+    - not:
+      - engine_mode: serverless    
+    - storage_encrypted: empty
