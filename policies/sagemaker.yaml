@@ -1,6 +1,7 @@
 policies:
 - name: sagemaker-notebook-instance-without-kms
-  description: AWS SageMaker should encrypt model artifacts at rest using Amazon S3
+  description: |
+    AWS SageMaker should encrypt model artifacts at rest using Amazon S3
     server-side encryption with an AWS KMS
   resource: terraform.aws_sagemaker*
   metadata:
